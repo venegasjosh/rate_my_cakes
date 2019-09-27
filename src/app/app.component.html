@@ -1,0 +1,26 @@
+<h1>Rate my cakes</h1>
+<p *ngIf="errors">{{ errors | json }}</p>
+<div class="row" id="input_section">
+  <div class="col">
+    <h4>Submit a cake to be rated</h4>
+    <hr>
+    <form (submit)="createCake()">
+      <p>Baker's name: <input type="text" name="new_cake.name" [(ngModel)]="new_cake.name"></p>
+      <p>Image url: <input type="text" name="new_cake.image" [(ngModel)]="new_cake.image"></p>
+      <p><input type="submit" value="Submit" class="btn btn-primary"></p>
+    </form>
+  </div>
+  <div class="col" id="cake_list">
+    <div class="row" *ngFor="let cake of cakes">
+      <img class="col img-thumbnail" [src]="cake.image" (click)="getOneCake(cake._id)">
+      <form class="col" (submit)="rateCake(cake._id)">
+        <p><select name="rating.rating" [(ngModel)]="ratings[cake._id].rating">
+          <option *ngFor="let x of [5,4,3,2,1]" [value]="x">{{x}} stars</option>
+        </select></p>
+        <p><textarea name="rating.comment" [(ngModel)]="ratings[cake._id].comment">Type your comment here</textarea></p>
+        <p><input type="submit" value="Rate!" class="btn btn-secondary"></p>
+      </form>
+    </div>
+  </div>
+</div>
+<app-cake *ngIf="show_cake['_id']" [cake]="show_cake" [avg_rating]="avg_rating"></app-cake>

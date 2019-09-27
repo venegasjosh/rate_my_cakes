@@ -1,0 +1,10 @@
+<h2>Baked by {{cake.name}}</h2>
+<div class="row">
+  <img class="col" [src]="cake.image">
+  <div class="col">
+    <p *ngIf="avg_rating">Average rating: {{avg_rating}} stars</p>
+    <div *ngFor="let r of cake.ratings">
+      <p>{{r.comment}} - {{r.rating}} stars</p>
+    </div>
+  </div>
+</div>
